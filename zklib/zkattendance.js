@@ -17,9 +17,11 @@ module.exports = function(ZKLib) {
   ZKLib.prototype.decodeAttendanceData = function(attdata) {
     var self = this;
     var attdatastr = new Uint16Array(attdata);
+    var u1 = parseInt(attdata.toString("hex").substr(4,2), 16);
+    var u2 = parseInt(attdata.toString("hex").substr(6,2), 16);
     var att = {
-      uid: parseInt(attdatastr.slice(0,3).toString("ascii").replace(new RegExp(["0,"], "gi"), "").replace(new RegExp("," ,"gi"), "")) || 0,
-      id: parseInt(attdata.slice(4,7).toString("ascii").split('\0').shift()) || 0,
+      uid: u1+(u2*256),
+      id: parseInt(attdata.slice(4,12).toString("ascii").split('\0').shift()) || 0,
       state: attdata[28],
       timestamp: self.decode_time(attdata.readUInt32LE(29))
     };
