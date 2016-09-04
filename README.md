@@ -4,7 +4,7 @@ Attendance Machine Library for NodeJS with a connection to the network using the
 
 Install with:
 
-    npm install zklib
+    npm install creativefull/zklib
 
 ## Usage
 
