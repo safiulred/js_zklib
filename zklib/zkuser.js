@@ -41,7 +41,7 @@ module.exports = function(ZKLib) {
 
     var buf = self.createHeader(command, chksum, session_id, reply_id, command_string);
     
-    self.socket = dgram.createSocket('udp4');
+    self.socket = dgram.createSocket({type:"udp4", reuseAddr:true});
     self.socket.bind(self.inport);
 
     self.socket.once('message', function(reply, remote) {
@@ -167,7 +167,7 @@ i*/
 
     var buf = self.createHeader(command, chksum, session_id, reply_id, command_string);
 
-    self.socket = dgram.createSocket('udp4');
+    self.socket = dgram.createSocket({type : 'udp4', reuseAddr : true});
     self.socket.bind(self.inport);
 
 

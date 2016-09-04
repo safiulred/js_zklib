@@ -16,9 +16,10 @@ module.exports = function(ZKLib) {
 
   ZKLib.prototype.decodeAttendanceData = function(attdata) {
     var self = this;
+    var attdatastr = new Uint16Array(attdata);
     var att = {
-      uid: parseInt(attdata.slice(0,4).toString("ascii").split('\0').shift()) || 0,
-      id: parseInt(attdata.slice(4,8).toString("ascii").split('\0').shift()) || 0,
+      uid: parseInt(attdatastr.slice(0,3).toString("ascii").replace(new RegExp(["0,"], "gi"), "").replace(new RegExp("," ,"gi"), "")) || 0,
+      id: parseInt(attdata.slice(4,7).toString("ascii").split('\0').shift()) || 0,
       state: attdata[28],
       timestamp: self.decode_time(attdata.readUInt32LE(29))
     };
@@ -38,7 +39,7 @@ module.exports = function(ZKLib) {
 
     var buf = self.createHeader(command, chksum, session_id, reply_id, command_string);
 
-    self.socket = dgram.createSocket('udp4');
+    self.socket = dgram.createSocket({type:"udp4",reuseAddr:true});
     self.socket.bind(self.inport);
 
     var state = self.STATE_FIRST_PACKET;

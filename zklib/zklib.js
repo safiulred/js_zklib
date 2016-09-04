@@ -24,12 +24,14 @@ ZKLib.prototype._executeCmd = function(command, command_string,cb) {
   }
 
   var buf = self.createHeader(command, 0, self.session_id, self.reply_id, command_string);
+  // console.log(command_string, buf.length);
 
-  self.socket = dgram.createSocket('udp4');
+  self.socket = dgram.createSocket({type:"udp4",reuseAddr:true});
   self.socket.bind(self.inport);
 
   self.socket.once('message', function(reply, remote) {
-    self.socket.close();
+    //self.socket.close();
+    // console.log(command_string, reply.length);
 
     self.data_recv = reply;
 
