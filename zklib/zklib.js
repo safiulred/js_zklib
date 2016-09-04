@@ -6,7 +6,9 @@ function ZKLib(options) {
   self.ip = options.ip;
   self.port = options.port;
   self.inport = options.inport;
-
+  self.timeout = options.timeout || 500;
+  self.output = false;
+  self.counter = 0;
 
   self.socket = null;
 
@@ -29,7 +31,21 @@ ZKLib.prototype._executeCmd = function(command, command_string,cb) {
   self.socket = dgram.createSocket({type:"udp4",reuseAddr:true});
   self.socket.bind(self.inport);
 
+  // TIME OUT
+  var time = setInterval(function() {
+    // console.log(self.counter);
+    if (self.counter >= self.timeout && self.output == false) {
+      clearInterval(time);
+      return cb("Request Timeout", null);
+    }
+    if (self.output == true) {
+      clearInterval(time);
+    }
+    self.counter++;
+  }, 10);
+
   self.socket.once('message', function(reply, remote) {
+    self.output = true;
     //self.socket.close();
     // console.log(command_string, reply.length);
 

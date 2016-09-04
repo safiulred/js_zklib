@@ -13,7 +13,8 @@ Install with:
     ZK = new ZKLib({
       ip : "192.168.5.11", 
       port : 4370,
-      inport : 5200
+      inport : 5200,
+      timeout : 500
     });
     
     // connect to access control device
