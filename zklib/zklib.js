@@ -188,4 +188,4 @@ require('./zktime')(ZKLib);
 require('./zkattendance')(ZKLib);
 require('./zkuser')(ZKLib);
 require('./zkmon')(ZKLib);
-  
+require('./zkcleardata')(ZKLib);
