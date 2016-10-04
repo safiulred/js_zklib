@@ -39,6 +39,7 @@ Install with:
 - gettime(callback) -> Get time of machine.
 - settime(value, callback) -> Set time in machine.
 - getuser(callback) -> Get all user in machine.
+- cleardata(callback) -> clear all data.
 
 ## Handle Callback
 
@@ -52,6 +53,7 @@ Zk.getTime(function(err, time) {
 ## Contributor
 - Bulent Vural https://github.com/bulentv
 - Shodiqul Muzaki https://github.com/creativefull
+- Safiul https://github.com/safiulred
 
 ## How to Contribute
 - open a pull request
